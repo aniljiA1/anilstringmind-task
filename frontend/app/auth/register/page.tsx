@@ -1,0 +1,36 @@
+"use client";
+
+import { useState } from "react";
+import api from "@/lib/api";
+
+export default function Register() {
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const submit = async () => {
+    await api.post("/auth/register", form);
+    window.location.href = "/auth/login";
+  };
+
+  return (
+    <div className="p-6">
+      <input
+        placeholder="Name"
+        onChange={(e) => setForm({ ...form, name: e.target.value })}
+      />
+      <input
+        placeholder="Email"
+        onChange={(e) => setForm({ ...form, email: e.target.value })}
+      />
+      <input
+        type="password"
+        placeholder="Password"
+        onChange={(e) => setForm({ ...form, password: e.target.value })}
+      />
+      <button onClick={submit}>Register</button>
+    </div>
+  );
+}
